@@ -16,8 +16,8 @@ namespace Smali2Java
             String sFile = args.Length > 0 ? args[0] : "Samples\\AndroidHandler.smali";
             string destFile = args.Length > 1 ? args[1] : null;
 
-            SmaliEngine e = new SmaliEngine();
-            string contents = e.Indent(e.Decompile(sFile));
+            SmaliEngine e = new SmaliEngine(); // object that does the work
+            string contents = e.Indent(e.Decompile(sFile)); // decompile then indent the smali file
             if (string.IsNullOrEmpty(destFile))
             {
                 Console.BufferHeight = 10000;
