@@ -13,7 +13,7 @@ namespace Smali2Java
 
         public String Decompile(String sFilename)
         {
-            String rv = String.Empty;
+            String rv = String.Empty; // holds final result
 
             foreach (String s in File.ReadAllLines(sFilename).Where(x => !String.IsNullOrEmpty(x)))
             {

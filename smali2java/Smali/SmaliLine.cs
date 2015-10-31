@@ -142,10 +142,10 @@ namespace Smali2Java
             SmaliLine rv = new SmaliLine();
 
             l = l.Trim();
-            if (l.Length == 0)
+            if (l.Length == 0)  // don't process empty lines
                 return null;
 
-            if (l[0] == '#')
+            if (l[0] == '#')  // don't process comments
                 return null;
 
             String sIdentifiers = l;
@@ -153,19 +153,19 @@ namespace Smali2Java
             bool bHasString = l.Contains('"');
 
             if (bHasString)
-                sIdentifiers = SmaliUtils.General.Eat(ref l, '"', false);
-            sRawText = l;
+                sIdentifiers = SmaliUtils.General.Eat(ref l, '"', false);  // get all up to the string
+            sRawText = l;  // holds a line or string from a line [OK?]
 
-            String[] sWords = sIdentifiers.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+            String[] sWords = sIdentifiers.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);  // space delimited split
 
-            if (sWords.Length == 0)
+            if (sWords.Length == 0)  // nothing to work with
                 return null;
 
-            String sInst = sWords[0].ToLowerInvariant().Trim();
+            String sInst = sWords[0].ToLowerInvariant().Trim();  // get the first item
             sWords[0] = String.Empty;
 
             if (sInst[0] == '.')
-                if (!ParseAsDirective(rv, sInst, ref sWords, ref sRawText))
+                if (!ParseAsDirective(rv, sInst, ref sWords, ref sRawText))  // only successful and continues if directive is recognized
                     return null;
                 else
                     rv.bIsDirective = true;
@@ -252,7 +252,7 @@ namespace Smali2Java
 
         public static void SetModifiers(SmaliLine l, ref String[] ar, int start, int end)
         {
-            for (int i = start; i < end; i++)
+            for (int i = start; i < end; i++)  // loop through line instruction args
                 if (Keywords.Contains(ar[i].ToLowerInvariant().Trim()))
                 {
                     if (!ParseNonAccess(l, ar[i].ToLowerInvariant().Trim()))

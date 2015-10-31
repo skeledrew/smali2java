@@ -18,9 +18,10 @@ namespace Smali2Java
 
             public static String Eat(ref String s, char until, bool addLength = false)
             {
-                String rv = s.Substring(0, s.IndexOf(until));
-                s = s.Substring(rv.Length + (addLength ? 1 : 0));
-                return rv;
+                // returns all up to the char, modified referenced string changed
+                String rv = s.Substring(0, s.IndexOf(until));  // first part of string
+                s = s.Substring(rv.Length + (addLength ? 1 : 0));  // rest of string
+                return rv;  // first
             }
 
             public static String Name2Java(String smaliName)
